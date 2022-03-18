@@ -49,23 +49,45 @@ function MainArea() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(inpInfo.title.length < 1){
-            setValidation(false)
-            return
-        }
-        setValidation(true)
-        dispatch({
-            type:"ADDNOTE",
-            payload: {
-                ...inpInfo,
-                id: uuidv4()
+        if(selected.toggle){
+            if(selected.title.length < 1){
+                setValidation(false)
+                return
             }
-        })
-        setInpInfo({
-            title:"",
-            subtitle: "",
-            body:""
-        })
+            setValidation(true)
+            dispatch({
+                type:"UPDATENOTE",
+                payload: inpModify
+            })
+            dispatch({
+                type:"RESETNOTE"
+            })
+            setInpModify({
+                title:"",
+                subtitle: "",
+                body:""
+            })
+        } else if (selected.toggle === false) {
+
+            if(inpInfo.title.length < 1){
+                setValidation(false)
+                return
+            }
+            setValidation(true)
+            dispatch({
+                type:"ADDNOTE",
+                payload: {
+                    ...inpInfo,
+                    id: uuidv4()
+                }
+            })
+            setInpInfo({
+                title:"",
+                subtitle: "",
+                body:""
+            })
+        }
+
     }
 
     return (

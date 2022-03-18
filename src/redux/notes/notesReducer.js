@@ -34,6 +34,16 @@ export default function notesReducer(state= INITIAL_STATE, action) {
       }
     }
 
+    case "UPDATENOTE": {
+      const newNoteArr = [...state.notes]
+      const newObj = action.payload
+
+      const index = newNoteArr.findIndex(obj => obj.id === newObj.id)
+      newNoteArr.splice(index, 1 , newObj)
+      return {
+        notes: newNoteArr
+      }
+    }
     
     case 'DELETENOTE':{
       const newNoteArr = [...state.notes].filter(note => note.id !== action.payload)
